@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ["7.4.2"]
+        php-versions: ["7.3", "7.4"]
         dependencies: ["highest", "lowest"]
 
     env:
@@ -68,7 +68,7 @@ jobs:
           $SOURCE_TAG = ${env:GITHUB_REF} -replace 'refs\/tags\/', ''
 
           echo "::set-env name=PHPUNIT::.\vendor\bin\phpunit --verbose"
-          echo "::set-env name=COMPOSER_UP::composer update --no-progress --no-suggest --no-interaction --ansi"
+          echo "::set-env name=COMPOSER_UP::composer update --no-progress --no-interaction --ansi"
           echo "::set-env name=SOURCE_NAME::$SOURCE_NAME"
           echo "::set-env name=SOURCE_BRANCH::$SOURCE_BRANCH"
           echo "::set-env name=SOURCE_TAG::$SOURCE_TAG"

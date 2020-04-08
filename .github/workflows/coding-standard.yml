@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ["7.4"]
+        php-versions: ["7.3"]
 
     env:
       key: "coding-standard-v1" # change key (version) to clear cache
@@ -62,7 +62,7 @@ jobs:
           NARROWSPARK_EMAIL: ${{ secrets.NARROWSPARK_EMAIL }}
           NARROWSPARK_USERNAME: ${{ secrets.NARROWSPARK_USERNAME }}
         run: |
-          echo "::set-env name=COMPOSER_UP::composer update --no-progress --no-suggest --no-interaction --prefer-source --ansi"
+          echo "::set-env name=COMPOSER_UP::composer update --no-progress --no-interaction --prefer-source --ansi"
 
           EMAIL=${NARROWSPARK_EMAIL:-"d.bannert@anolilab.de"}
           NAME=${NARROWSPARK_USERNAME:-"prisis"}
@@ -151,7 +151,7 @@ jobs:
           NARROWSPARK_EMAIL: ${{ secrets.NARROWSPARK_EMAIL }}
           NARROWSPARK_USERNAME: ${{ secrets.NARROWSPARK_USERNAME }}
         run: |
-          echo "::set-env name=COMPOSER_UP::composer update --no-progress --no-suggest --no-interaction --prefer-source --ansi"
+          echo "::set-env name=COMPOSER_UP::composer update --no-progress --no-interaction --prefer-source --ansi"
 
           EMAIL=${NARROWSPARK_EMAIL:-"d.bannert@anolilab.de"}
           NAME=${NARROWSPARK_USERNAME:-"prisis"}
