@@ -34,7 +34,7 @@
         "phpstan:baseline": "phpstan analyse -c ./../phpstan.neon --ansi --generate-baseline",
         "psalm": "psalm --diff --diff-methods --threads=$(nproc)",
         "psalm:fix": "psalm --alter --issues=all --threads=$(nproc)",
-        "psalm:baseline": "psalm --threads=$(nproc) --set-baseline=psalm-baseline.xml",
+        "psalm:baseline": "psalm --threads=$(nproc) --set-baseline=./.build/psalm-baseline.xml",
         "rector-src": "rector process ./../src/ --config=./rector-src.yaml --ansi --dry-run",
         "rector-src:fix": "rector process ./../src/ --config=./rector-src.yaml --ansi",
         "rector-tests": "rector process ./../tests/ --config=./rector-tests.yaml --ansi --dry-run",
