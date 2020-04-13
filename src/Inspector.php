@@ -250,6 +250,8 @@ final class Inspector
      * If xdebug is installed.
      *
      * @psalm-return list<array<string, mixed>>
+     *
+     * @return mixed[]
      */
     private function getTrace(Throwable $throwable): array
     {
