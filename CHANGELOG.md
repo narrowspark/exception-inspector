@@ -1,3 +1,15 @@
+v1.0.1
+======
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+Fixed
+-----
+
+ - [5: fix : removing mistake with old php bug fix](https://github.com/narrowspark/exception-inspector/pull/5) thanks to @prisis
+
 v1.0.0
 ======
 

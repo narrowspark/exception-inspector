@@ -20,7 +20,7 @@ use Throwable;
 final class Inspector
 {
     /** @var string */
-    public const VERSION = '1.0.0';
+    public const VERSION = '1.0.1';
 
     /** @var string */
     private const PATTERN = "/\\[<a href='([^']+)'>(?:[^<]+)<\\/a>\\]/";
