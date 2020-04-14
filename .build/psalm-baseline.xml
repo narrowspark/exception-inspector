@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="3.10.1@eeed5ecccc10131397f0eb7ee6da810c0be3a7fc">
+  <file src="src/Frame.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$this-&gt;frame</code>
+    </LessSpecificReturnStatement>
+    <MixedAssignment occurrences="1">
+      <code>$file</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>?string</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$file</code>
+    </MixedReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>array{file: string, line: int, class: string, args: array{array-key: mixed}, function: string}</code>
+    </MoreSpecificReturnType>
+    <PossiblyNullArrayAccess occurrences="2">
+      <code>$matches[1]</code>
+      <code>$matches[2]</code>
+    </PossiblyNullArrayAccess>
+    <PropertyTypeCoercion occurrences="2">
+      <code>$this-&gt;frame</code>
+      <code>$this-&gt;frame</code>
+    </PropertyTypeCoercion>
+  </file>
+  <file src="src/FrameCollection.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$frame</code>
+    </ArgumentTypeCoercion>
+    <InvalidPropertyAssignmentValue occurrences="1"/>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$callable</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="1">
+      <code>$frame</code>
+    </MixedAssignment>
+    <MixedReturnTypeCoercion occurrences="2">
+      <code>new ArrayIterator($this-&gt;getArray())</code>
+      <code>\ArrayIterator&lt;int, \Narrowspark\ExceptionInspector\Frame&gt;</code>
+    </MixedReturnTypeCoercion>
+    <TooManyTemplateParams occurrences="1">
+      <code>\Narrowspark\ExceptionInspector\FrameCollection&lt;\Narrowspark\ExceptionInspector\Frame&gt;</code>
+    </TooManyTemplateParams>
+  </file>
+  <file src="src/Inspector.php">
+    <ArgumentTypeCoercion occurrences="2">
+      <code>$nextFrame</code>
+      <code>$frames</code>
+    </ArgumentTypeCoercion>
+    <DocblockTypeContradiction occurrences="1">
+      <code>$this-&gt;previousExceptions === null</code>
+    </DocblockTypeContradiction>
+    <InvalidReturnStatement occurrences="1"/>
+    <InvalidReturnType occurrences="1">
+      <code>int[]</code>
+    </InvalidReturnType>
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$docref</code>
+    </LessSpecificReturnStatement>
+    <MixedAssignment occurrences="5">
+      <code>$file</code>
+      <code>$line</code>
+      <code>$frames[$k]['file']</code>
+      <code>$frames[$k]['line']</code>
+      <code>$docref['url']</code>
+    </MixedAssignment>
+    <MixedPropertyTypeCoercion occurrences="1">
+      <code>new FrameCollection($frames)</code>
+    </MixedPropertyTypeCoercion>
+    <MixedReturnTypeCoercion occurrences="4">
+      <code>$this-&gt;frames</code>
+      <code>\Narrowspark\ExceptionInspector\FrameCollection&lt;\Narrowspark\ExceptionInspector\Frame&gt;</code>
+      <code>array_diff_key($stack, $trace)</code>
+      <code>list&lt;array&lt;string, mixed&gt;&gt;</code>
+    </MixedReturnTypeCoercion>
+    <MoreSpecificReturnType occurrences="1">
+      <code>array{message: string, url: null|string}</code>
+    </MoreSpecificReturnType>
+    <PossiblyNullArrayAccess occurrences="1">
+      <code>$matches[1]</code>
+    </PossiblyNullArrayAccess>
+    <TooManyTemplateParams occurrences="2">
+      <code>null|\Narrowspark\ExceptionInspector\FrameCollection&lt;\Narrowspark\ExceptionInspector\Frame&gt;</code>
+      <code>\Narrowspark\ExceptionInspector\FrameCollection&lt;\Narrowspark\ExceptionInspector\Frame&gt;</code>
+    </TooManyTemplateParams>
+  </file>
+  <file src="tests/Unit/FrameCollectionTest.php">
+    <ArgumentTypeCoercion occurrences="3">
+      <code>$frames</code>
+    </ArgumentTypeCoercion>
+    <InvalidArgument occurrences="3">
+      <code>'foo'</code>
+    </InvalidArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$frameCollection2</code>
+    </MixedArgumentTypeCoercion>
+    <MixedReturnTypeCoercion occurrences="2">
+      <code>new FrameCollection($frames)</code>
+      <code>\Narrowspark\ExceptionInspector\FrameCollection&lt;int, \Narrowspark\ExceptionInspector\Frame&gt;</code>
+    </MixedReturnTypeCoercion>
+    <RedundantCondition occurrences="2">
+      <code>assertInstanceOf</code>
+      <code>assertNotSame</code>
+    </RedundantCondition>
+    <TooManyArguments occurrences="1"/>
+    <TooManyTemplateParams occurrences="1">
+      <code>\Narrowspark\ExceptionInspector\FrameCollection&lt;int, \Narrowspark\ExceptionInspector\Frame&gt;</code>
+    </TooManyTemplateParams>
+  </file>
+  <file src="tests/Unit/FrameTest.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$data</code>
+    </ArgumentTypeCoercion>
+    <InvalidDocblock occurrences="1">
+      <code>public static function provideGetFileContentsWhenFrameIsNotRelatedToSpecificFileCases(): iterable</code>
+    </InvalidDocblock>
+    <MixedInferredReturnType occurrences="1">
+      <code>iterable&lt;array-key, array&lt;array-key, string&gt;</code>
+    </MixedInferredReturnType>
+    <PossiblyInvalidCast occurrences="1">
+      <code>$data['file']</code>
+    </PossiblyInvalidCast>
+  </file>
+</files>

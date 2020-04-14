@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ["7.4.2"]
+        php-versions: ["7.3", "7.4"]
         dependencies: ["highest", "lowest"]
 
     env:
@@ -64,7 +64,7 @@ jobs:
           NARROWSPARK_USERNAME: ${{ secrets.NARROWSPARK_USERNAME }}
         run: |
           echo "::set-env name=PHPUNIT::./vendor/bin/phpunit --verbose"
-          echo "::set-env name=COMPOSER_UP::composer update --no-progress --no-suggest --no-interaction --prefer-source --ansi"
+          echo "::set-env name=COMPOSER_UP::composer update --no-progress --no-interaction --prefer-source --ansi"
           echo "::set-env name=SOURCE_NAME::${GITHUB_REF#refs/*/}"
           echo "::set-env name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}"
           echo "::set-env name=SOURCE_TAG::${GITHUB_REF#refs/tags/}"

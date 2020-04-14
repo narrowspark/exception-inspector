@@ -1,5 +1,6 @@
 includes:
     - %currentWorkingDirectory%/vendor/narrowspark/coding-standard/base_rules.neon
+    - %currentWorkingDirectory%/phpstan-baseline.neon
 
 parameters:
     paths:
@@ -15,5 +16,3 @@ parameters:
     tmpDir: %currentWorkingDirectory%/phpstan
 
     excludes_analyse:
-
-    ignoreErrors:

@@ -12,7 +12,7 @@ $license = License\Type\MIT::markdown(
         new \DateTimeZone('UTC')
     ),
     License\Holder::fromString('Daniel Bannert'),
-    License\Url::fromString('https://github.com/narrowspark/php-library-template')
+    License\Url::fromString('https://github.com/narrowspark/exception-inspector')
 );
 
 $license->save();
@@ -36,6 +36,7 @@ $config->getFinder()
         '.github',
         'vendor',
     ])
+    ->notPath('tests/Unit/Fixture/frame.lines-test.php')
     ->name('*.php')
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
