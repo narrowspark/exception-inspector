@@ -24,8 +24,8 @@ jobs:
 
     env:
       key: "mutation-v1" # change key (version) to clear cache
-      min-covered-msi: 69
-      min-msi: 59
+      min-covered-msi: 70
+      min-msi: 60
       extensions: "mbstring"
       ini-values: "date.timezone=Europe/Berlin, opcache.enable_cli=1, pcov.directory=api"
       tools: "composer, composer-prefetcher, cs2pr"
