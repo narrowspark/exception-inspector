@@ -38,6 +38,12 @@ final class Inspector
     /** @var Throwable[] */
     private $previousExceptions;
 
+    /** @var null|string */
+    private $exceptionUrl;
+
+    /** @var null|string */
+    private $exceptionMessage;
+
     public function __construct(Throwable $exception)
     {
         $this->exception = $exception;
@@ -49,10 +55,10 @@ final class Inspector
     }
 
     /**
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveDeadRecursiveClassMethodRector
-     *
      * Returns an iterator for the inspected exception's
      * frames.
+     *
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveDeadRecursiveClassMethodRector
      *
      * @psalm-return \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame>
      *
@@ -157,14 +163,18 @@ final class Inspector
         return $this->previousExceptions;
     }
 
+    public function getExceptionMessage(): string
+    {
+        if ($this->exceptionMessage === null) {
+            $this->exceptionMessage = $this->extractDocrefUrl($this->exception->getMessage())['message'];
+        }
+
+        return $this->exceptionMessage;
+    }
+
     public function getExceptionName(): string
     {
         return \get_class($this->exception);
-    }
-
-    public function getExceptionMessage(): string
-    {
-        return $this->extractDocrefUrl($this->exception->getMessage())['message'];
     }
 
     /**
@@ -182,7 +192,11 @@ final class Inspector
      */
     public function getExceptionDocrefUrl(): ?string
     {
-        return $this->extractDocrefUrl($this->exception->getMessage())['url'];
+        if ($this->exceptionUrl === null) {
+            $this->exceptionUrl = $this->extractDocrefUrl($this->exception->getMessage())['url'];
+        }
+
+        return $this->exceptionUrl;
     }
 
     /**

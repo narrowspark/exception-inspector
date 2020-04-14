@@ -17,6 +17,7 @@ use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use Narrowspark\ExceptionInspector\Contract\Exception\OutOfRangeException;
 use Narrowspark\ExceptionInspector\Contract\Exception\ReadOnlyException;
 use Narrowspark\ExceptionInspector\Contract\Exception\UnexpectedValueException;
 
@@ -118,6 +119,10 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
      */
     public function offsetGet($offset): Frame
     {
+        if (! isset($this->frames[$offset])) {
+            throw new OutOfRangeException('Frame[' . $offset . '] was not found.');
+        }
+
         return $this->frames[$offset];
     }
 

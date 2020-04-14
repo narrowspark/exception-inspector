@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Narrowspark\ExceptionInspector\Tests\Unit;
 
+use Narrowspark\ExceptionInspector\Contract\Exception\OutOfRangeException;
 use Narrowspark\ExceptionInspector\Contract\Exception\ReadOnlyException;
 use Narrowspark\ExceptionInspector\Frame;
 use Narrowspark\ExceptionInspector\FrameCollection;
@@ -68,6 +69,17 @@ final class FrameCollectionTest extends TestCase
         $collection = $this->getFrameCollectionInstance();
 
         unset($collection[0]);
+    }
+
+    public function testArrayAccessGetWithInvalidOffset(): void
+    {
+        $this->expectException(OutOfRangeException::class);
+        $this->expectExceptionMessage('Frame[100] was not found.');
+
+        $collection = $this->getFrameCollectionInstance();
+
+        /** @noRector \Rector\DeadCode\Rector\Stmt\RemoveDeadStmtRector */
+        $collection[100];
     }
 
     public function testFilterFrames(): void

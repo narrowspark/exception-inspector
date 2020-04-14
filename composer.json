@@ -64,7 +64,7 @@
         ],
         "cs": "composer --working-dir=./.build cs -- -v",
         "cs:check": "composer --working-dir=./.build cs:check -- -v",
-        "infection": "composer --working-dir=./.build infection -- --min-covered-msi=69 --min-msi=59",
+        "infection": "composer --working-dir=./.build infection -- --min-covered-msi=70 --min-msi=60",
         "phpstan": "composer --working-dir=./.build phpstan -- --memory-limit=-1",
         "phpstan:baseline": "composer --working-dir=./.build phpstan:baseline -- --memory-limit=-1",
         "psalm": "composer --working-dir=./.build psalm",

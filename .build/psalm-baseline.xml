@@ -29,6 +29,9 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>$frame</code>
     </ArgumentTypeCoercion>
+    <InvalidOperand occurrences="1">
+      <code>$offset</code>
+    </InvalidOperand>
     <InvalidPropertyAssignmentValue occurrences="1"/>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$callable</code>
