@@ -78,6 +78,7 @@ final class FrameCollectionTest extends TestCase
 
         $collection = $this->getFrameCollectionInstance();
 
+        /** @noRector \Rector\DeadCode\Rector\Stmt\RemoveDeadStmtRector */
         $collection[100];
     }
 
