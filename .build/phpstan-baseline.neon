@@ -36,11 +36,6 @@ parameters:
 			path: ../tests/Unit/FrameCollectionTest.php
 
 		-
-			message: "#^Anonymous function should have native return typehint \"Narrowspark\\\\ExceptionInspector\\\\Frame\"\\.$#"
-			count: 1
-			path: ../tests/Unit/FrameCollectionTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotSame\\(\\) with 'foobar'\\|Narrowspark\\\\ExceptionInspector\\\\Frame and array\\<Narrowspark\\\\ExceptionInspector\\\\Frame\\> will always evaluate to true\\.$#"
 			count: 1
 			path: ../tests/Unit/FrameCollectionTest.php

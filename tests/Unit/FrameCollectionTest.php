@@ -87,7 +87,7 @@ final class FrameCollectionTest extends TestCase
         $frames = $this->getFrameCollectionInstance();
 
         // Filter out all frames with a line number under 6
-        $frames->map(static function (Frame $frame) {
+        $frames->map(static function (Frame $frame): Frame {
             $frame->addComment('This is cool', 'test');
 
             return $frame;
@@ -231,7 +231,7 @@ final class FrameCollectionTest extends TestCase
         return [
             'file' => __DIR__ . \DIRECTORY_SEPARATOR . 'Fixture/frame.lines-test.php',
             'line' => $id,
-            'function' => 'test-' . (string) $id,
+            'function' => \Safe\sprintf('test-%s', $id),
             'class' => 'MyClass',
             'args' => [true, 'hello'],
         ];
