@@ -72,25 +72,6 @@ final class Inspector
         if ($this->frames === null) {
             $frames = $this->getTrace($this->exception);
 
-            // Fill empty line/file info for call_user_func_array usages (PHP Bug #44428)
-            foreach ($frames as $k => $frame) {
-                if ($frame['file'] !== '') {
-                    // Default values when file and line are missing
-                    $file = '[internal]';
-                    $line = 0;
-
-                    $nextFrame = $frames[$k + 1] ?? [];
-
-                    if ($this->isValidNextFrame($nextFrame)) {
-                        $file = $nextFrame['file'];
-                        $line = $nextFrame['line'];
-                    }
-
-                    $frames[$k]['file'] = $file;
-                    $frames[$k]['line'] = $line;
-                }
-            }
-
             // Find latest non-error handling frame index ($i) used to remove error handling frames
             $i = 0;
 
@@ -314,23 +295,6 @@ final class Inspector
                 $exception->getMessage(),
             ],
         ];
-    }
-
-    /**
-     * Determine if the frame can be used to fill in previous frame's missing info
-     * happens for call_user_func and call_user_func_array usages (PHP Bug #44428).
-     *
-     * @psalm-param array{file: ?string, line: ?int, class: string, args: array<array-key, mixed>, function: ?string} $frame
-     *
-     * @param array<string, array|int|string> $frame
-     */
-    private function isValidNextFrame(array $frame): bool
-    {
-        if (! isset($frame['file'], $frame['line'])) {
-            return false;
-        }
-
-        return isset($frame['function']) && stripos($frame['function'], 'call_user_func') !== false;
     }
 
     /**

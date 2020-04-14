@@ -16,11 +16,6 @@ parameters:
 			path: ../src/FrameCollection.php
 
 		-
-			message: "#^Parameter \\#1 \\$frame of method Narrowspark\\\\ExceptionInspector\\\\Inspector\\:\\:isValidNextFrame\\(\\) expects array\\('file' \\=\\> string\\|null, 'line' \\=\\> int\\|null, 'class' \\=\\> string, 'args' \\=\\> array, 'function' \\=\\> string\\|null\\), array\\<string, mixed\\> given\\.$#"
-			count: 1
-			path: ../src/Inspector.php
-
-		-
 			message: "#^Parameter \\#1 \\$frames of class Narrowspark\\\\ExceptionInspector\\\\FrameCollection constructor expects array\\<int, array\\<string, array\\<string, mixed\\>\\|int\\|string\\|null\\>\\>, array\\<int, array\\<string, array\\<string\\>\\|int\\|string\\>\\> given\\.$#"
 			count: 1
 			path: ../src/Inspector.php
