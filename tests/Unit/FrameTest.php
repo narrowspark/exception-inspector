@@ -78,7 +78,7 @@ final class FrameTest extends TestCase
         $content = $frame->getFileContents();
 
         self::assertNotNull($content);
-        self::assertStringEqualsFile((string) $data['file'], $content);
+        self::assertStringEqualsFile($data['file'], $content);
     }
 
     /**
@@ -94,7 +94,7 @@ final class FrameTest extends TestCase
     }
 
     /**
-     * @psalm-return iterable<array-key, array<array-key, string>
+     * @psalm-return iterable<array-key, array<array-key, string>>
      *
      * @return string[][]
      */
@@ -216,6 +216,8 @@ final class FrameTest extends TestCase
     }
 
     /**
+     * @psalm-return array{file: string, line: int, function: string, class: string, args: array{0: true, 1: string}}
+     *
      * @return array<string, array|int|string>
      */
     private function getFrameData(): array
