@@ -5,7 +5,7 @@
     "require": {
         "php": "^7.3",
         "narrowspark/coding-standard": "^5.1.0",
-        "nikic/php-parser": "^4.4.0",
+        "nikic/php-parser": "dev-master",
         "wikimedia/composer-merge-plugin": "^1.4.1"
     },
     "extra": {

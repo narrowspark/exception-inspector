@@ -18,7 +18,6 @@ use Narrowspark\ExceptionInspector\Contract\Exception\ReadOnlyException;
 use Narrowspark\ExceptionInspector\Frame;
 use Narrowspark\ExceptionInspector\FrameCollection;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 
 /**
  * @internal
