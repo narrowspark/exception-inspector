@@ -36,7 +36,6 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
      */
     public function __construct(array $frames)
     {
-        /** @psalm-var array{file: string, line: int, class: string, args?: array{array-key: mixed}, function?: string} $frame */
         $this->frames = array_map(static function (array $frame): Frame {
             return new Frame($frame);
         }, $frames);
@@ -45,7 +44,7 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Filters frames using a callable, returns the same FrameCollection.
      *
-     * @psalm-param callable(\Narrowspark\ExceptionInspector\Frame=):bool $callable
+     * @psalm-param callable(\Narrowspark\ExceptionInspector\Frame=default):bool $callable
      *
      * @psalm-return \Narrowspark\ExceptionInspector\FrameCollection&static
      * @phpstan-return \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame>
@@ -166,7 +165,8 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Gets the innermost part of stack trace that is not the same as that of outer exception.
      *
-     * @phpstan-param \Narrowspark\ExceptionInspector\FrameCollection $parentFrames
+     * @psalm-param \Narrowspark\ExceptionInspector\FrameCollection $parentFrames
+     * @phpstan-param \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame> $parentFrames
      *
      * @param self $parentFrames Outer exception frames to compare tail against
      *

@@ -238,8 +238,6 @@ final class FrameCollectionTest extends TestCase
 
     /**
      * @psalm-return array{args: array{array-key: mixed}, class: string, file: string, function?: string, line: int}
-     *
-     * @return array<string, array|int|string>
      */
     private function getFrameData(): array
     {
@@ -256,6 +254,9 @@ final class FrameCollectionTest extends TestCase
 
     /**
      * @param null|array<int, mixed[]> $frames
+     *
+     * @psalm-return \Narrowspark\ExceptionInspector\FrameCollection
+     * @phpstan-return \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame>
      */
     private function getFrameCollectionInstance(?array $frames = null): FrameCollection
     {

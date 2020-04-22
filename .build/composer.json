@@ -4,7 +4,8 @@
     "license": "proprietary",
     "require": {
         "php": "^7.3",
-        "narrowspark/coding-standard": "^5.0.0",
+        "narrowspark/coding-standard": "^5.1.0",
+        "nikic/php-parser": "^4.4.0",
         "wikimedia/composer-merge-plugin": "^1.4.1"
     },
     "extra": {

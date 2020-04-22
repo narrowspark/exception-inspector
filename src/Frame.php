@@ -121,7 +121,7 @@ final class Frame
         // @todo: This can be made more reliable by checking if we've entered
         // eval() in a previous trace, but will need some more work on the upper
         // trace collector(s).
-        /** @psalm-var array{0: string, 1: string} $matches */
+        /** @psalm-var array{0: string, 1: string} $matches @var array<int, string> $matches */
         if (\Safe\preg_match('/^(.*)\((\d+)\) : (?:eval\(\)\'d|assert) code$/', $file, $matches) !== 0 && \is_array($matches)) {
             $file = $this->frame['file'] = (string) $matches[1];
             $this->frame['line'] = (int) $matches[2];
@@ -190,9 +190,11 @@ final class Frame
      * Returns the array containing the raw frame data from which
      * this Frame object was built.
      *
+     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector
+     *
      * @psalm-return array{file: string, line: int, class: string, args?: array{array-key: mixed}, function?: string}
      *
-     * @return int[][]|mixed[][]|string[][]
+     * @return int[]|int[]|mixed[][]|string[]|string[]
      */
     public function getRawFrame(): array
     {

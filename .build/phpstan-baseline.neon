@@ -1,7 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$frame of class Narrowspark\\\\ExceptionInspector\\\\Frame constructor expects array\\('line' \\=\\> int, 'class' \\=\\> string, \\?'file' \\=\\> string, \\?'args' \\=\\> array\\('array\\-key' \\=\\> mixed\\), \\?'function' \\=\\> string\\), array given\\.$#"
+			message: "#^Variable \\$matches in PHPDoc tag @var does not exist\\.$#"
+			count: 1
+			path: ../src/Frame.php
+
+		-
+			message: "#^Parameter \\#1 \\$frame of class Narrowspark\\\\ExceptionInspector\\\\Frame constructor expects array\\('file' \\=\\> string, 'line' \\=\\> int, 'class' \\=\\> string, \\?'args' \\=\\> array\\('array\\-key' \\=\\> mixed\\), \\?'function' \\=\\> string\\), array given\\.$#"
 			count: 1
 			path: ../src/FrameCollection.php
 
@@ -9,6 +14,11 @@ parameters:
 			message: "#^Method Narrowspark\\\\ExceptionInspector\\\\FrameCollection\\:\\:getIterator\\(\\) return type with generic class ArrayIterator does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: ../src/FrameCollection.php
+
+		-
+			message: "#^Parameter \\#1 \\$frames of class Narrowspark\\\\ExceptionInspector\\\\FrameCollection constructor expects array\\<int, array\\<string, array\\<string, mixed\\>\\|int\\|string\\>\\>, array given\\.$#"
+			count: 1
+			path: ../src/Inspector.php
 
 		-
 			message: "#^Should not use function \"debug_backtrace\", please change the code\\.$#"
@@ -21,12 +31,12 @@ parameters:
 			path: ../tests/Unit/FrameCollectionTest.php
 
 		-
-			message: "#^Narrowspark\\\\ExceptionInspector\\\\FrameCollection does not accept string\\.$#"
+			message: "#^Expression \"\\$collection\\[100\\]\" on a separate line does not do anything\\.$#"
 			count: 1
 			path: ../tests/Unit/FrameCollectionTest.php
 
 		-
-			message: "#^Expression \"\\$collection\\[100\\]\" on a separate line does not do anything\\.$#"
+			message: "#^Parameter \\#1 \\$callable of method Narrowspark\\\\ExceptionInspector\\\\FrameCollection\\:\\:map\\(\\) expects callable\\(Narrowspark\\\\ExceptionInspector\\\\Frame\\)\\: Narrowspark\\\\ExceptionInspector\\\\Frame, Closure\\(\\)\\: string given\\.$#"
 			count: 1
 			path: ../tests/Unit/FrameCollectionTest.php
 
@@ -36,17 +46,12 @@ parameters:
 			path: ../tests/Unit/FrameCollectionTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$frames of class Narrowspark\\\\ExceptionInspector\\\\FrameCollection constructor expects array\\<int, array\\<string, array\\<string, mixed\\>\\|int\\|string\\>\\>, array\\<int\\|string, mixed\\> given\\.$#"
-			count: 2
-			path: ../tests/Unit/FrameCollectionTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$frame of class Narrowspark\\\\ExceptionInspector\\\\Frame constructor expects array\\('line' \\=\\> int, 'class' \\=\\> string, \\?'file' \\=\\> string, \\?'args' \\=\\> array\\('array\\-key' \\=\\> mixed\\), \\?'function' \\=\\> string\\), array\\('file' \\=\\> 'foo', 'line' \\=\\> 1, 'function' \\=\\> 'test\\-1', 'class' \\=\\> 'MyClass', 'args' \\=\\> array\\(true, 'hello'\\)\\) given\\.$#"
+			message: "#^Parameter \\#1 \\$frame of class Narrowspark\\\\ExceptionInspector\\\\Frame constructor expects array\\('file' \\=\\> string, 'line' \\=\\> int, 'class' \\=\\> string, \\?'args' \\=\\> array\\('array\\-key' \\=\\> mixed\\), \\?'function' \\=\\> string\\), array\\('file' \\=\\> 'foo', 'line' \\=\\> 1, 'function' \\=\\> 'test\\-1', 'class' \\=\\> 'MyClass', 'args' \\=\\> array\\(true, 'hello'\\)\\) given\\.$#"
 			count: 1
 			path: ../tests/Unit/FrameCollectionTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$frame of class Narrowspark\\\\ExceptionInspector\\\\Frame constructor expects array\\('line' \\=\\> int, 'class' \\=\\> string, \\?'file' \\=\\> string, \\?'args' \\=\\> array\\('array\\-key' \\=\\> mixed\\), \\?'function' \\=\\> string\\), array\\('file' \\=\\> string, 'line' \\=\\> 1, 'function' \\=\\> 'test\\-1', 'class' \\=\\> 'MyClass', 'args' \\=\\> array\\(true, 'hello'\\)\\) given\\.$#"
+			message: "#^Parameter \\#1 \\$frame of class Narrowspark\\\\ExceptionInspector\\\\Frame constructor expects array\\('file' \\=\\> string, 'line' \\=\\> int, 'class' \\=\\> string, \\?'args' \\=\\> array\\('array\\-key' \\=\\> mixed\\), \\?'function' \\=\\> string\\), array\\('file' \\=\\> string, 'line' \\=\\> 1, 'function' \\=\\> 'test\\-1', 'class' \\=\\> 'MyClass', 'args' \\=\\> array\\(true, 'hello'\\)\\) given\\.$#"
 			count: 1
 			path: ../tests/Unit/FrameCollectionTest.php
 
@@ -56,12 +61,27 @@ parameters:
 			path: ../tests/Unit/FrameCollectionTest.php
 
 		-
-			message: "#^Method Narrowspark\\\\ExceptionInspector\\\\Tests\\\\Unit\\\\FrameCollectionTest\\:\\:getFrameCollectionInstance\\(\\) return type has no value type specified in iterable type Narrowspark\\\\ExceptionInspector\\\\FrameCollection\\.$#"
+			message: "#^Method Narrowspark\\\\ExceptionInspector\\\\Tests\\\\Unit\\\\FrameCollectionTest\\:\\:getFrameDataList\\(\\) should return array\\<int, array\\<string, array\\<string, mixed\\>\\|int\\|string\\>\\> but returns array\\<int, array\\>\\.$#"
 			count: 1
 			path: ../tests/Unit/FrameCollectionTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$frame of class Narrowspark\\\\ExceptionInspector\\\\Frame constructor expects array\\('line' \\=\\> int, 'class' \\=\\> string, \\?'file' \\=\\> string, \\?'args' \\=\\> array\\('array\\-key' \\=\\> mixed\\), \\?'function' \\=\\> string\\), array\\<string, array\\|int\\|string\\> given\\.$#"
+			message: "#^Method Narrowspark\\\\ExceptionInspector\\\\Tests\\\\Unit\\\\FrameCollectionTest\\:\\:getFrameData\\(\\) never returns array\\<string, array\\<string, mixed\\>\\|int\\|string\\> so it can be removed from the return typehint\\.$#"
+			count: 2
+			path: ../tests/Unit/FrameCollectionTest.php
+
+		-
+			message: "#^Method Narrowspark\\\\ExceptionInspector\\\\Tests\\\\Unit\\\\FrameCollectionTest\\:\\:getFrameData\\(\\) should return array\\('args' \\=\\> array\\('array\\-key' \\=\\> mixed\\), 'class' \\=\\> string, 'file' \\=\\> string, 'line' \\=\\> int, \\?'function' \\=\\> string\\) but returns array\\('file' \\=\\> string, 'line' \\=\\> int, 'function' \\=\\> string, 'class' \\=\\> 'MyClass', 'args' \\=\\> array\\(true, 'hello'\\)\\)\\.$#"
+			count: 1
+			path: ../tests/Unit/FrameCollectionTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$frames of class Narrowspark\\\\ExceptionInspector\\\\FrameCollection constructor expects array\\<int, array\\<string, array\\<string, mixed\\>\\|int\\|string\\>\\>, array\\<int, array\\> given\\.$#"
+			count: 1
+			path: ../tests/Unit/FrameCollectionTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$frame of class Narrowspark\\\\ExceptionInspector\\\\Frame constructor expects array\\('file' \\=\\> string, 'line' \\=\\> int, 'class' \\=\\> string, \\?'args' \\=\\> array\\('array\\-key' \\=\\> mixed\\), \\?'function' \\=\\> string\\), array\\<string, array\\|int\\|string\\> given\\.$#"
 			count: 1
 			path: ../tests/Unit/FrameTest.php
 

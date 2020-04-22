@@ -206,7 +206,7 @@ final class Inspector
      */
     public function getPreviousExceptionCodes(): array
     {
-        return array_map(static function (Throwable $prev) {
+        return array_map(static function (Throwable $prev): int {
             return (int) $prev->getCode();
         }, $this->getPreviousExceptions());
     }
