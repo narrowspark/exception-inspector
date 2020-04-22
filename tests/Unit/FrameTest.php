@@ -32,10 +32,6 @@ final class FrameTest extends TestCase
         $frame = $this->getFrameInstance($data);
 
         self::assertEquals($frame->getFile(), $data['file']);
-
-        $frame = $this->getFrameInstance([]);
-
-        self::assertNull($frame->getFile());
     }
 
     public function testGetLine(): void
@@ -191,7 +187,7 @@ final class FrameTest extends TestCase
 
         self::assertTrue($frame1->equals($frame2));
 
-        $frame1 = $this->getFrameInstance(['line' => 1]);
+        $frame1 = $this->getFrameInstance(['line' => 1, 'file' => 'test-file.php']);
         $frame2 = $this->getFrameInstance(['line' => 1, 'file' => 'Unknown']);
 
         self::assertFalse($frame1->equals($frame2));

@@ -108,18 +108,6 @@ final class FrameCollectionTest extends TestCase
         self::assertCount(10, $frames);
     }
 
-    public function testMapFramesEnforceType(): void
-    {
-        $this->expectException(UnexpectedValueException::class);
-
-        $frames = $this->getFrameCollectionInstance();
-
-        // Filter out all frames with a line number under 6
-        $frames->map(static function (): string {
-            return 'bajango';
-        });
-    }
-
     public function testGetArray(): void
     {
         $frames = $this->getFrameCollectionInstance();
