@@ -29,6 +29,7 @@ final class Inspector
     private $exception;
 
     /**
+     * @psalm-var null|\Narrowspark\ExceptionInspector\FrameCollection
      * @phpstan-var null|\Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame>
      *
      * @var null|\Narrowspark\ExceptionInspector\FrameCollection
@@ -38,7 +39,7 @@ final class Inspector
     /** @var null|self */
     private $previousExceptionInspector;
 
-    /** @var Throwable[] */
+    /** @var null|Throwable[] */
     private $previousExceptions;
 
     /** @var null|string */
@@ -63,7 +64,8 @@ final class Inspector
      *
      * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveDeadRecursiveClassMethodRector
      *
-     * @psalm-return \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame>
+     * @psalm-return \Narrowspark\ExceptionInspector\FrameCollection
+     * @phpstan-return \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame>
      *
      * @return \Narrowspark\ExceptionInspector\FrameCollection
      */
@@ -75,9 +77,14 @@ final class Inspector
             // Find latest non-error handling frame index ($i) used to remove error handling frames
             $i = 0;
 
+            /**
+             * @psalm-var array{file: string, line: int, class: string, args?: array{array-key: mixed}, function?: string} $frame
+             *
+             * @var array<string, mixed> $frame
+             */
             foreach ($frames as $k => $frame) {
                 if ($frame['file'] === $this->exception->getFile() && $frame['line'] === $this->exception->getLine()) {
-                    $i = $k;
+                    $i = (int) $k;
                 }
             }
 
@@ -90,6 +97,7 @@ final class Inspector
 
             array_unshift($frames, $firstFrame);
 
+            /** @psalm-var array{int, array{file: string, line: int, class: string, args?: array{array-key: mixed}, function?: string}} $frames */
             $this->frames = new FrameCollection($frames);
 
             if (($previousInspector = $this->getPreviousExceptionInspector()) !== null) {
@@ -192,12 +200,14 @@ final class Inspector
     }
 
     /**
+     * @psalm-return array<array-key, int>
+     *
      * @return int[]
      */
     public function getPreviousExceptionCodes(): array
     {
-        return array_map(static function (Throwable $prev) {
-            return $prev->getCode();
+        return array_map(static function (Throwable $prev): int {
+            return (int) $prev->getCode();
         }, $this->getPreviousExceptions());
     }
 
@@ -236,7 +246,9 @@ final class Inspector
                 $docref['message'] = $message;
             }
 
-            $docref['url'] = $matches[1];
+            if (isset($matches[1])) {
+                $docref['url'] = (string) $matches[1];
+            }
         }
 
         return $docref;
@@ -247,7 +259,7 @@ final class Inspector
      *
      * If xdebug is installed.
      *
-     * @psalm-return list<array<string, mixed>>
+     * @psalm-return array<array-key, array<string, mixed>|mixed>
      *
      * @return mixed[]
      */

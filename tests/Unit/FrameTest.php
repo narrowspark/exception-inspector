@@ -32,10 +32,6 @@ final class FrameTest extends TestCase
         $frame = $this->getFrameInstance($data);
 
         self::assertEquals($frame->getFile(), $data['file']);
-
-        $frame = $this->getFrameInstance([]);
-
-        self::assertNull($frame->getFile());
     }
 
     public function testGetLine(): void
@@ -78,7 +74,7 @@ final class FrameTest extends TestCase
         $content = $frame->getFileContents();
 
         self::assertNotNull($content);
-        self::assertStringEqualsFile((string) $data['file'], $content);
+        self::assertStringEqualsFile($data['file'], $content);
     }
 
     /**
@@ -94,7 +90,7 @@ final class FrameTest extends TestCase
     }
 
     /**
-     * @psalm-return iterable<array-key, array<array-key, string>
+     * @psalm-return iterable<array-key, array<array-key, string>>
      *
      * @return string[][]
      */
@@ -191,7 +187,7 @@ final class FrameTest extends TestCase
 
         self::assertTrue($frame1->equals($frame2));
 
-        $frame1 = $this->getFrameInstance(['line' => 1]);
+        $frame1 = $this->getFrameInstance(['line' => 1, 'file' => 'test-file.php']);
         $frame2 = $this->getFrameInstance(['line' => 1, 'file' => 'Unknown']);
 
         self::assertFalse($frame1->equals($frame2));
@@ -216,6 +212,8 @@ final class FrameTest extends TestCase
     }
 
     /**
+     * @psalm-return array{file: string, line: int, function: string, class: string, args: array{0: true, 1: string}}
+     *
      * @return array<string, array|int|string>
      */
     private function getFrameData(): array

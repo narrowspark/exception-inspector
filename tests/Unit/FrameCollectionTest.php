@@ -18,7 +18,6 @@ use Narrowspark\ExceptionInspector\Contract\Exception\ReadOnlyException;
 use Narrowspark\ExceptionInspector\Frame;
 use Narrowspark\ExceptionInspector\FrameCollection;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 
 /**
  * @internal
@@ -106,18 +105,6 @@ final class FrameCollectionTest extends TestCase
         });
 
         self::assertCount(10, $frames);
-    }
-
-    public function testMapFramesEnforceType(): void
-    {
-        $this->expectException(UnexpectedValueException::class);
-
-        $frames = $this->getFrameCollectionInstance();
-
-        // Filter out all frames with a line number under 6
-        $frames->map(static function (): string {
-            return 'bajango';
-        });
     }
 
     public function testGetArray(): void
@@ -215,10 +202,13 @@ final class FrameCollectionTest extends TestCase
         $frames = $this->getFrameCollectionInstance();
 
         self::assertSame(10, $frames->count());
+        self::assertCount(10, $frames);
     }
 
     /**
      * @param int|string $total
+     *
+     * @psalm-return array<int, array{args: array{array-key: mixed}, class: string, file: string, function?: string, line: int}>
      *
      * @return mixed[]
      */
@@ -234,7 +224,7 @@ final class FrameCollectionTest extends TestCase
     }
 
     /**
-     * @return array<string, array|int|string>
+     * @psalm-return array{args: array{array-key: mixed}, class: string, file: string, function?: string, line: int}
      */
     private function getFrameData(): array
     {
@@ -250,9 +240,10 @@ final class FrameCollectionTest extends TestCase
     }
 
     /**
-     * @param null|array<int, array<string, null|array<string, mixed>|int|string>> $frames
+     * @param null|array<int, mixed[]> $frames
      *
-     * @phpstan-return \Narrowspark\ExceptionInspector\FrameCollection<int, \Narrowspark\ExceptionInspector\Frame>
+     * @psalm-return \Narrowspark\ExceptionInspector\FrameCollection
+     * @phpstan-return \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame>
      */
     private function getFrameCollectionInstance(?array $frames = null): FrameCollection
     {

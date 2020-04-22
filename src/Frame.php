@@ -22,7 +22,7 @@ use Safe\Exceptions\FilesystemException;
 final class Frame
 {
     /**
-     * @psalm-var array{file: ?string, line: int, class: string, args: array{array-key: mixed}, function: string}
+     * @psalm-var array{file: string, line: int, class: string, args?: array{array-key: mixed}, function?: string}
      *
      * @var array<string, null|array<int, mixed>|int|string>
      */
@@ -42,7 +42,7 @@ final class Frame
     private $application = false;
 
     /**
-     * @psalm-param array{file: ?string, line: int, class: string, args: array{array-key: mixed}, function: string} $frame
+     * @psalm-param array{file: string, line: int, class: string, args?: array{array-key: mixed}, function?: string} $frame
      *
      * @param int[]|mixed[][]|string[] $frame
      */
@@ -111,7 +111,7 @@ final class Frame
 
     public function getFile(): ?string
     {
-        if (! isset($this->frame['file']) || $this->frame['file'] === '') {
+        if ($this->frame['file'] === '') {
             return null;
         }
 
@@ -121,8 +121,9 @@ final class Frame
         // @todo: This can be made more reliable by checking if we've entered
         // eval() in a previous trace, but will need some more work on the upper
         // trace collector(s).
-        if (\Safe\preg_match('/^(.*)\((\d+)\) : (?:eval\(\)\'d|assert) code$/', $file, $matches) !== 0) {
-            $file = $this->frame['file'] = $matches[1];
+        /** @psalm-var array{0: string, 1: string} $matches @var array<int, string> $matches */
+        if (\Safe\preg_match('/^(.*)\((\d+)\) : (?:eval\(\)\'d|assert) code$/', $file, $matches) !== 0 && \is_array($matches)) {
+            $file = $this->frame['file'] = (string) $matches[1];
             $this->frame['line'] = (int) $matches[2];
         }
 
@@ -145,7 +146,7 @@ final class Frame
 
     public function getFunction(): ?string
     {
-        if ($this->frame['function'] === '') {
+        if (! isset($this->frame['function']) || $this->frame['function'] === '') {
             return null;
         }
 
@@ -157,7 +158,7 @@ final class Frame
      */
     public function getArgs(): array
     {
-        return $this->frame['args'];
+        return $this->frame['args'] ?? [];
     }
 
     /**
@@ -189,9 +190,11 @@ final class Frame
      * Returns the array containing the raw frame data from which
      * this Frame object was built.
      *
-     * @psalm-return array{file: string, line: int, class: string, args: array{array-key: mixed}, function: string}
+     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector
      *
-     * @return int[][]|mixed[][]|string[][]
+     * @psalm-return array{file: string, line: int, class: string, args?: array{array-key: mixed}, function?: string}
+     *
+     * @return int[]|int[]|mixed[][]|string[]|string[]
      */
     public function getRawFrame(): array
     {

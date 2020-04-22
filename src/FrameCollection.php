@@ -19,7 +19,6 @@ use Countable;
 use IteratorAggregate;
 use Narrowspark\ExceptionInspector\Contract\Exception\OutOfRangeException;
 use Narrowspark\ExceptionInspector\Contract\Exception\ReadOnlyException;
-use Narrowspark\ExceptionInspector\Contract\Exception\UnexpectedValueException;
 
 /**
  * @implements \ArrayAccess<int, \Narrowspark\ExceptionInspector\Frame>
@@ -31,13 +30,12 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
     private $frames;
 
     /**
-     * @psalm-param list<array{file: string, line: int, class: string, args: array{array-key: mixed}, function: ?string}> $frames
+     * @psalm-param array<int, array{file: string, line: int, class: string, args?: array{array-key: mixed}, function?: string}> $frames
      *
      * @param int[][]|mixed[][][]|string[][] $frames
      */
     public function __construct(array $frames)
     {
-        /** @psalm-var array{file: string, line: int, class: string, args: array{array-key: mixed}, function: string} frame */
         $this->frames = array_map(static function (array $frame): Frame {
             return new Frame($frame);
         }, $frames);
@@ -45,6 +43,8 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Filters frames using a callable, returns the same FrameCollection.
+     *
+     * @psalm-param callable(\Narrowspark\ExceptionInspector\Frame=default):bool $callable
      *
      * @psalm-return \Narrowspark\ExceptionInspector\FrameCollection&static
      * @phpstan-return \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame>
@@ -59,6 +59,8 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Map the collection of frames.
      *
+     * @psalm-param callable(\Narrowspark\ExceptionInspector\Frame):\Narrowspark\ExceptionInspector\Frame $callable
+     *
      * @psalm-return \Narrowspark\ExceptionInspector\FrameCollection&static
      * @phpstan-return \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame>
      */
@@ -67,15 +69,7 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
         // Contain the map within a higher-order callable
         // that enforces type-correctness for the $callable
         $this->frames = array_map(static function (Frame $frame) use ($callable): Frame {
-            $frame = \call_user_func($callable, $frame);
-
-            if (! $frame instanceof Frame) {
-                throw new UnexpectedValueException(
-                    'Callable to ' . self::class . '::map must return a Frame object'
-                );
-            }
-
-            return $frame;
+            return \call_user_func($callable, $frame);
         }, $this->frames);
 
         return $this;
@@ -97,9 +91,8 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
     /**
      * {@inheritdoc}
      *
-     * @psalm-return \ArrayIterator<int, \Narrowspark\ExceptionInspector\Frame>
-     *
-     * @return ArrayIterator<int, \Narrowspark\ExceptionInspector\Frame>
+     * @psalm-return \ArrayIterator<array-key, \Narrowspark\ExceptionInspector\Frame>
+     * @phpstan-return \ArrayIterator<int, \Narrowspark\ExceptionInspector\Frame>
      */
     public function getIterator(): ArrayIterator
     {
@@ -120,7 +113,7 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
     public function offsetGet($offset): Frame
     {
         if (! isset($this->frames[$offset])) {
-            throw new OutOfRangeException('Frame[' . $offset . '] was not found.');
+            throw new OutOfRangeException("Frame[{$offset}] was not found.");
         }
 
         return $this->frames[$offset];
@@ -172,6 +165,7 @@ final class FrameCollection implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Gets the innermost part of stack trace that is not the same as that of outer exception.
      *
+     * @psalm-param \Narrowspark\ExceptionInspector\FrameCollection $parentFrames
      * @phpstan-param \Narrowspark\ExceptionInspector\FrameCollection<\Narrowspark\ExceptionInspector\Frame> $parentFrames
      *
      * @param self $parentFrames Outer exception frames to compare tail against
