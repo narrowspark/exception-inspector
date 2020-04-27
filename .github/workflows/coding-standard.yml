@@ -109,7 +109,7 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ["7.4"]
+        php-versions: ["7.3"]
 
     env:
       key: "rector-ci-v1" # change key (version) to clear cache
